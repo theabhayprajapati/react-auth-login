@@ -35,9 +35,6 @@ const links = [
 const Navigation = () => {
   const currentUser = true;
   const { logOutUser } = React.useContext(UserContext);
-  const signOutUser = () => {
-    logOutUser(); 
-  };
 
   return (
     <div className="container">
@@ -46,7 +43,6 @@ const Navigation = () => {
         <nav className="nav-container">
           {links.map((link) => {
             if (link.to === "/login" && currentUser) {
-              link.onClick = () => signOutUser();
               return mapLink(link);
             }
             return mapLink(link);
