@@ -9,9 +9,6 @@ name, email, username, hobbies, gender
 const Dashboard = () => {
   const { currentUser } = React.useContext(UserContext);
   /* useNavigate */
-  if (currentUser != null) {
-    return <Navigate to="/login" />;
-  }
   return (
     <div>
       <h1>Dashboard</h1>
