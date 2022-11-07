@@ -19,6 +19,15 @@ function App() {
             <h1>
               {currentUser ? `Welcome ${currentUser.name}` : 'Welcome to the app'}
             </h1>
+            {/* https://github.com/theabhayprajapati/ */}
+            <footer style={
+              {
+                position: "absolute",
+                bottom: "10px"
+              }
+            }>
+              <a href="https://github.com/theabhayprajapati/">@abhayprajapati</a>
+            </footer>
           </div>
         } />
         <Route path="/login" element={<Register />} />
