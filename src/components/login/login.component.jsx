@@ -1,10 +1,21 @@
 import React from "react";
+import { register } from "../../utils/backend/login.backend";
 
-const FormElement = ({ label, type, name, id }) => {
+const FormElement = ({ label, type, name, id, user, setUser }) => {
+  const handleInputUpdate = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <input type={type} name={name} id={id} />
+      <input
+        type={type}
+        name={name}
+        id={id}
+        value={user[name]}
+        onChange={handleInputUpdate}
+      />
     </div>
   );
 };
@@ -46,21 +57,41 @@ const formElements = [
     id: "hobbies",
   },
 ];
-const FormComponent = () => {
+const FormComponent = ({ user, setUser }) => {
   return (
     <>
       {formElements.map((element) => {
-        return <FormElement {...element} />;
+        return (
+          <FormElement
+            key={element.id}
+            {...element}
+            user={user}
+            setUser={setUser}
+          />
+        );
       })}
     </>
   );
 };
 
 const LoginForm = () => {
+  const [user, setUser] = React.useState({
+    name: "",
+    username: "",
+    password: "",
+    email: "",
+    hobbies: "",
+    gender: "",
+  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await register(user);
+    console.log("Submitted");
+  };
   return (
     <div>
-      <form action="">
-        <FormComponent />
+      <form action="" onSubmit={handleSubmit}>
+        <FormComponent user={user} setUser={setUser} />
         <div>
           <button>
             <span>Submit</span>

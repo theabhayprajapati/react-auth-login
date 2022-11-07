@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { UserContext } from "../../context/user/user.context";
 
 const mapLink = (link) => {
   return (
@@ -26,30 +27,33 @@ const links = [
     to: "/dashboard",
     text: "dashboard",
   },
+  {
+    to: "/register",
+    text: "register",
+  },
 ];
 const Navigation = () => {
   const currentUser = true;
+  const { logOutUser } = React.useContext(UserContext);
   const signOutUser = () => {
-    console.log("Sign out user");
+    logOutUser(); 
   };
 
   return (
-    <div>
+    <div className="container">
       {/* login/ dashboard */}
-      <>
-        <nav>
+      <div>
+        <nav className="nav-container">
           {links.map((link) => {
             if (link.to === "/login" && currentUser) {
-              link.text = "logout";
               link.onClick = () => signOutUser();
               return mapLink(link);
             }
             return mapLink(link);
           })}
-          <button>logout</button>
         </nav>
-        <Outlet />
-      </>
+      </div>
+      <Outlet />
     </div>
   );
 };
